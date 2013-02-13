@@ -43,10 +43,12 @@ if [ $VER == 'git' ]; then
 fi
 
 #TODO: make this more fine-grained/optional
-for f in `ls -1 ../patches/*.patch`; do
-	echo "Applying $f"
-	patch -p1 < $f
-done
+if [ -d ../patches ]; then
+	for f in `ls -1 ../patches/*.patch`; do
+		echo "Applying $f"
+		patch -p1 < $f
+	done
+fi
 
 if [ $VER == 'git' ]; then
 	./autogen.sh
