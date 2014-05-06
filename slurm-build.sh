@@ -24,7 +24,7 @@ if [ $VER != 'git' ]; then
 	tar xavf "$TARBALL" 2>&1 | tee "$LOG_EXTRACT"
 fi
 
-cd $CANON
+pushd $CANON > /dev/null
 
 if [ $VER == 'git' ]; then
 	git reset --hard
@@ -33,6 +33,7 @@ if [ $VER == 'git' ]; then
 	FF=$(git checkout $REV)
 	if [ $? -ne 0 ]; then
 		echo "Error: could not find branch/commit/tag"
+		popd > /dev/null
 		exit 1
 	fi
 
@@ -63,3 +64,4 @@ fi
 make -j32 2>&1 | tee "../$LOG_MAKE"
 
 exit 0
+popd > /dev/null
