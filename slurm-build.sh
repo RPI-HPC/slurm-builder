@@ -5,6 +5,9 @@ if [ $# -lt 1 ]; then
 	exit 1
 fi
 
+BG_NAME="BGQ"
+DB2_DIR="/opt/ibm/db2/V9.7/lib64"
+
 MAKEOPTS="-j31"
 
 VER="$1"
@@ -57,7 +60,11 @@ if [ $VER == 'git' ]; then
 	./autogen.sh
 fi
 
-./configure --enable-front-end --with-munge=/usr --with-db2-dir=/opt/ibm/db2/V9.7/lib64 --with-bg-serial="Q" --prefix=/bgsys/local/slurm 2>&1 | tee "../$LOG_CONFIGURE"
+./configure --enable-front-end \
+	--with-munge=/usr \
+	--with-db2-dir="$DB2_DIR" \
+	--with-bg-serial="$BG_NAME" \
+	--prefix=/bgsys/local/slurm 2>&1 | tee "../$LOG_CONFIGURE"
 
 if [ $VER == 'git' ]; then
 	make clean
