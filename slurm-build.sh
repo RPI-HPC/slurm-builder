@@ -5,6 +5,8 @@ if [ $# -lt 1 ]; then
 	exit 1
 fi
 
+MAKEOPTS="-j31"
+
 VER="$1"
 
 CANON="slurm-${VER}"
@@ -61,7 +63,7 @@ if [ $VER == 'git' ]; then
 	make clean
 fi
 
-make -j32 2>&1 | tee "../$LOG_MAKE"
+make $MAKEOPTS 2>&1 | tee "../$LOG_MAKE"
 
 exit 0
 popd > /dev/null
