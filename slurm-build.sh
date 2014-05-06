@@ -30,7 +30,7 @@ if [ $VER == 'git' ]; then
 	git reset --hard
 	git clean -d -f
 	REV="$2"
-	FF=$(git checkout $REV)
+	FF=`git checkout $REV`
 	if [ $? -ne 0 ]; then
 		echo "Error: could not find branch/commit/tag"
 		popd > /dev/null
